@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui">
+
+	<!-- 
+		Replace path to template, title, header and body
+		with actual data.
+	 -->
+	 
+	<ui:composition template="/template/general.xhtml">
+
+			<ui:define name="content">
+				<h1 class="h-wai">Seguridades</h1>
+				<h:form id="formPrincipal">
+				<b>Hola mundo, público</b>
+					<!--<h:panelGrid columns="2" 
+						style="width: 50%;"
+						columnClasses="form-label-izquierda, form-input-izquierda">
+						<h:outputText value="Usuario:"/>
+						<p:inputText value="#{opcionCtrl.valor1}"
+							required="true"
+							requiredMessage="Usuario requerido" />
+						<h:outputText value="Contraseña:" />
+						<p:password value="#{opcionCtrl.valor2}" required="true"/>
+					</h:panelGrid>
+					<p:commandButton value="Ingresar" 
+						actionListener="#{opcionCtrl.consultarMenu}" />-->
+				</h:form>
+			</ui:define>
+	</ui:composition>
+</html>
