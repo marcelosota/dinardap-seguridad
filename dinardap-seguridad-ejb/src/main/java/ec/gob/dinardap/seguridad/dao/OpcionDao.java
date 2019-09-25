@@ -10,7 +10,7 @@ import ec.gob.dinardap.seguridad.modelo.Opcion;
 @Local
 public interface OpcionDao extends GenericDao<Opcion, Integer> {
 
-	public List<Opcion> obtenerOpcionesPorPerfil(int perfilId);
+	public List<Opcion> obtenerOpcionesPorPerfil1(String misPerfiles);
 	public List<Opcion> obtenerOpciones(int perfilId);
 	public List<Opcion> obtenerOpciones(List<String> perfil);
 }

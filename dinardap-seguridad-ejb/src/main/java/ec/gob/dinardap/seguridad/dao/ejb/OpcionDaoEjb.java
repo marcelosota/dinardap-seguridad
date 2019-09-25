@@ -19,13 +19,15 @@ public class OpcionDaoEjb extends SeguridadGenericDao<Opcion, Integer> implement
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Opcion> obtenerOpcionesPorPerfil(int perfilId) {
+	public List<Opcion> obtenerOpcionesPorPerfil1(String misPerfiles) {
 		List<Opcion> menu = new ArrayList<Opcion>();
 		StringBuilder sql = new StringBuilder("with recursive menu as( ");
 		sql.append("select o.opcion_id, o.padre_id, o.nombre, o.url, o.nivel, o.orden, o.visible, o.estado ");
 		sql.append("from ec_dinardap_seguridad.opcion o "); 
 		sql.append("inner join ec_dinardap_seguridad.permiso r on o.opcion_id = r.opcion_id "); 
-		sql.append("where r.perfil_id = ").append(perfilId).append(" or o.padre_id is null ");
+		sql.append("where r.perfil_id in( ").append(misPerfiles).append(") or (o.padre_id is null and ");
+		sql.append("r.perfil_id in( ").append(misPerfiles).append(")) ");
+		//sql.append("where r.perfil_id = ").append(perfilId).append(" or o.padre_id is null ");
 		sql.append("union ");
 		sql.append("select p.opcion_id, p.padre_id, p.nombre, p.url, p.nivel, p.orden, p.visible, p.estado "); 
 		sql.append("from ec_dinardap_seguridad.opcion p "); 
@@ -72,7 +74,7 @@ public class OpcionDaoEjb extends SeguridadGenericDao<Opcion, Integer> implement
 				+ "and o.estado = :estado "
 				//+ "and o.visible = :visible "
 				+ "and o.nivel = 1"
-				+ "order by o.nivel, o.orden");
+				+ " order by o.nivel, o.orden");
 		
 		query.setParameter("perfilId", perfilId);
 		query.setParameter("estado", EstadoEnum.ACTIVO.getEstado());
@@ -91,7 +93,7 @@ public class OpcionDaoEjb extends SeguridadGenericDao<Opcion, Integer> implement
 				+ "f.nombre in (:nombre) "
 				+ "and o.estado = :estado "
 				+ "and o.nivel = 1"
-				+ "order by o.nivel, o.orden");
+				+ " order by o.nivel, o.orden");
 		
 		query.setParameter("nombre", perfil);
 		query.setParameter("estado", EstadoEnum.ACTIVO.getEstado());
