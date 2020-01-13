@@ -51,6 +51,10 @@ public class Sistema implements Serializable {
 	//bi-directional many-to-one association to Perfil
 	@OneToMany(mappedBy="sistema")
 	private List<Perfil> perfils;
+	
+	//bi-directional many-to-one association to Perfil
+	@OneToMany(mappedBy="sistema")
+	private List<GestionarExcel> gestionarExcels;
 
 	public Sistema() {
 	}
@@ -131,6 +135,28 @@ public class Sistema implements Serializable {
 		perfil.setSistema(null);
 
 		return perfil;
+	}
+
+	public List<GestionarExcel> getGestionarExcels() {
+		return gestionarExcels;
+	}
+
+	public void setGestionarExcels(List<GestionarExcel> gestionarExcels) {
+		this.gestionarExcels = gestionarExcels;
+	}
+	
+	public GestionarExcel addGestionarExcel(GestionarExcel gestionarExcel) {
+		getGestionarExcels().add(gestionarExcel);
+		gestionarExcel.setSistema(this);
+
+		return gestionarExcel;
+	}
+
+	public GestionarExcel removeGestionarExcel(GestionarExcel gestionarExcel) {
+		getGestionarExcels().remove(gestionarExcel);
+		gestionarExcel.setSistema(null);
+		
+		return gestionarExcel;
 	}
 
 }
