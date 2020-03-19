@@ -8,4 +8,5 @@ import ec.gob.dinardap.seguridad.modelo.Perfil;
 @Local
 public interface PerfilServicio extends GenericService<Perfil, Integer> {
 
+	public Perfil obtenerPorNombre(String nombre);
 }
