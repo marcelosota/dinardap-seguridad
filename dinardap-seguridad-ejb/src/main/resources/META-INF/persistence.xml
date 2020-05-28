@@ -6,7 +6,10 @@
 	<persistence-unit name="seguridad-pu">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>java:jboss/datasources/dinardapDS</jta-data-source>
-		
+		<class>ec.gob.dinardap.geografico.modelo.Canton</class>
+		<class>ec.gob.dinardap.geografico.modelo.Parroquia</class>
+		<class>ec.gob.dinardap.geografico.modelo.Provincia</class>
+		<class>ec.gob.dinardap.geografico.modelo.Zona</class>
 		<properties>
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.hbm2ddl.auto" value="validate" />
