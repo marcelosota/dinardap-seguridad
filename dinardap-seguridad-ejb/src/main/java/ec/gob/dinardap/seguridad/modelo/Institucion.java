@@ -18,6 +18,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import ec.gob.dinardap.geografico.modelo.Canton;
+
 
 /**
  * The persistent class for the institucion database table.
@@ -35,8 +37,8 @@ public class Institucion implements Serializable {
 	@Column(name="institucion_id")
 	private Integer institucionId;
 
-	@Column(name="canton_id")
-	private Integer cantonId;
+	//@Column(name="canton_id")
+	//private Integer cantonId;
 
 	@Column(name="codigo_is")
 	private Integer codigoIs;
@@ -56,10 +58,15 @@ public class Institucion implements Serializable {
 	private String ruc;
 
 	private String siglas;
+	
+	//bi-directional many-to-one association to Perfil
+	@ManyToOne
+	@JoinColumn(name="canton_id")
+	private Canton canton;
 
 	//bi-directional many-to-one association to AsignacionUsuario
 	@OneToMany(mappedBy="institucion")
-	private List<AsignacionUsuario> asignacionUsuarios;
+	private List<AsignacionInstitucion> asignacionInstitucions;
 
 	//bi-directional many-to-one association to Fuente
 	@OneToMany(mappedBy="institucion")
@@ -90,12 +97,12 @@ public class Institucion implements Serializable {
 		this.institucionId = institucionId;
 	}
 
-	public Integer getCantonId() {
-		return this.cantonId;
+	public Canton getCanton() {
+		return this.canton;
 	}
 
-	public void setCantonId(Integer cantonId) {
-		this.cantonId = cantonId;
+	public void setCanton(Canton canton) {
+		this.canton = canton;
 	}
 
 	public Integer getCodigoIs() {
@@ -154,26 +161,26 @@ public class Institucion implements Serializable {
 		this.siglas = siglas;
 	}
 
-	public List<AsignacionUsuario> getAsignacionUsuarios() {
-		return this.asignacionUsuarios;
+	public List<AsignacionInstitucion> getAsignacionInstitucions() {
+		return this.asignacionInstitucions;
 	}
 
-	public void setAsignacionUsuarios(List<AsignacionUsuario> asignacionUsuarios) {
-		this.asignacionUsuarios = asignacionUsuarios;
+	public void setAsignacionInstitucions(List<AsignacionInstitucion> asignacionInstitucions) {
+		this.asignacionInstitucions = asignacionInstitucions;
 	}
 
-	public AsignacionUsuario addAsignacionUsuario(AsignacionUsuario asignacionUsuario) {
-		getAsignacionUsuarios().add(asignacionUsuario);
-		asignacionUsuario.setInstitucion(this);
+	public AsignacionInstitucion addAsignacionInstitucion(AsignacionInstitucion asignacionInstitucion) {
+		getAsignacionInstitucions().add(asignacionInstitucion);
+		asignacionInstitucion.setInstitucion(this);
 
-		return asignacionUsuario;
+		return asignacionInstitucion;
 	}
 
-	public AsignacionUsuario removeAsignacionUsuario(AsignacionUsuario asignacionUsuario) {
-		getAsignacionUsuarios().remove(asignacionUsuario);
-		asignacionUsuario.setInstitucion(null);
+	public AsignacionInstitucion removeAsignacionInstitucion(AsignacionInstitucion asignacionInstitucion) {
+		getAsignacionInstitucions().remove(asignacionInstitucion);
+		asignacionInstitucion.setInstitucion(null);
 
-		return asignacionUsuario;
+		return asignacionInstitucion;
 	}
 
 	public List<Fuente> getFuentes() {

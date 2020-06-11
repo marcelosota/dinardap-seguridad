@@ -6,12 +6,13 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
 
+import ec.gob.dinardap.persistence.dao.ejb.GenericDaoEjb;
 import ec.gob.dinardap.seguridad.dao.OpcionDao;
 import ec.gob.dinardap.seguridad.modelo.Opcion;
 import ec.gob.dinardap.util.constante.EstadoEnum;
 
 @Stateless(name="OpcionDao")
-public class OpcionDaoEjb extends SeguridadGenericDao<Opcion, Integer> implements OpcionDao {
+public class OpcionDaoEjb extends GenericDaoEjb<Opcion, Integer> implements OpcionDao {
 
 	public OpcionDaoEjb() {
 		super(Opcion.class);

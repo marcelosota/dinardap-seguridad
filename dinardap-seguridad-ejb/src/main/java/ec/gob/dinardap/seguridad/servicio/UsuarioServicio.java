@@ -8,4 +8,5 @@ import ec.gob.dinardap.seguridad.modelo.Usuario;
 @Local
 public interface UsuarioServicio extends GenericService<Usuario, Integer> {
 
+	public Usuario obtenerUsuarioPorIdentificacion(String identificacion);
 }

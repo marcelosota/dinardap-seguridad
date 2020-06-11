@@ -46,6 +46,14 @@
 				<version>4.11</version>
 				<scope>test</scope>
 			</dependency>
+			
+			<!-- EJBs -->
+			<dependency>
+				<groupId>ec.gob.dinardap.geografico</groupId>
+				<artifactId>dinardap-geografico-ejb</artifactId>
+				<version>1.5-SNAPSHOT</version>
+				<type>ejb</type>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 

@@ -56,10 +56,10 @@ public class Usuario implements Serializable {
 
 	private String telefono;
 
-	//bi-directional many-to-one association to AsignacionUsuario
+	//bi-directional many-to-one association to AsignacionInstitucion
 	@OneToMany(mappedBy="usuario")
-	private List<AsignacionUsuario> asignacionUsuarios;
-
+	private List<AsignacionInstitucion> asignacionInstitucions;
+		
 	//bi-directional many-to-one association to Respuesta
 	@OneToMany(mappedBy="usuario")
 	private List<Respuesta> respuestas;
@@ -147,26 +147,26 @@ public class Usuario implements Serializable {
 		this.telefono = telefono;
 	}
 
-	public List<AsignacionUsuario> getAsignacionUsuarios() {
-		return this.asignacionUsuarios;
+	public List<AsignacionInstitucion> getAsignacionInstitucions() {
+		return this.asignacionInstitucions;
 	}
 
-	public void setAsignacionUsuarios(List<AsignacionUsuario> asignacionUsuarios) {
-		this.asignacionUsuarios = asignacionUsuarios;
+	public void setAsignacionInstitucions(List<AsignacionInstitucion> asignacionInstitucions) {
+		this.asignacionInstitucions = asignacionInstitucions;
 	}
 
-	public AsignacionUsuario addAsignacionUsuario(AsignacionUsuario asignacionUsuario) {
-		getAsignacionUsuarios().add(asignacionUsuario);
-		asignacionUsuario.setUsuario(this);
+	public AsignacionInstitucion addAsignacionInstitucion(AsignacionInstitucion asignacionInstitucion) {
+		getAsignacionInstitucions().add(asignacionInstitucion);
+		asignacionInstitucion.setUsuario(this);
 
-		return asignacionUsuario;
+		return asignacionInstitucion;
 	}
 
-	public AsignacionUsuario removeAsignacionUsuario(AsignacionUsuario asignacionUsuario) {
-		getAsignacionUsuarios().remove(asignacionUsuario);
-		asignacionUsuario.setUsuario(null);
+	public AsignacionInstitucion removeAsignacionInstitucion(AsignacionInstitucion asignacionInstitucion) {
+		getAsignacionInstitucions().remove(asignacionInstitucion);
+		asignacionInstitucion.setUsuario(null);
 
-		return asignacionUsuario;
+		return asignacionInstitucion;
 	}
 
 	public List<Respuesta> getRespuestas() {

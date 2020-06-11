@@ -60,6 +60,12 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>ec.gob.dinardap.geografico</groupId>
+			<artifactId>dinardap-geografico-ejb</artifactId>
+			<type>ejb</type>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
