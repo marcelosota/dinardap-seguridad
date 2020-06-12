@@ -1,5 +1,7 @@
 package ec.gob.dinardap.seguridad.dto;
 
+import java.util.Date;
+
 public class UsuarioDto {
 
 	private Integer usuarioId;
@@ -14,6 +16,7 @@ public class UsuarioDto {
 	private Integer tipoInstitucionId;
 	private Integer institucionId;
 	private Integer perfilId;
+	private Date fechaCreacion;
 	private Short estado;
 	
 	public Integer getUsuarioId() {
@@ -87,6 +90,12 @@ public class UsuarioDto {
 	}
 	public void setPerfilId(Integer perfilId) {
 		this.perfilId = perfilId;
+	}
+	public Date getFechaCreacion() {
+		return fechaCreacion;
+	}
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
 	}
 	public Short getEstado() {
 		return estado;

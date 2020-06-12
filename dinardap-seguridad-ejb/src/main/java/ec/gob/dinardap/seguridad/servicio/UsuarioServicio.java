@@ -11,4 +11,5 @@ public interface UsuarioServicio extends GenericService<Usuario, Integer> {
 
 	public Usuario obtenerUsuarioPorIdentificacion(String identificacion);
 	public UsuarioDto crearUsuario(UsuarioDto usuarioDto);
+	public void modificarUsuario(UsuarioDto usuarioDto);
 }

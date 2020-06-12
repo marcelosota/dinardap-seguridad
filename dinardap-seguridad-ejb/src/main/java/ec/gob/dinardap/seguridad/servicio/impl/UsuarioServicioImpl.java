@@ -39,6 +39,7 @@ public class UsuarioServicioImpl extends GenericServiceImpl<Usuario, Integer> im
 		else
 			return null;
 	}
+	
 	@Override
 	public UsuarioDto crearUsuario(UsuarioDto usuarioDto) {
 		Usuario usuario = new Usuario();
@@ -53,6 +54,23 @@ public class UsuarioServicioImpl extends GenericServiceImpl<Usuario, Integer> im
 		create(usuario);
 		usuarioDto.setUsuarioId(usuario.getUsuarioId());
 		return usuarioDto;
+	}
+	
+	@Override
+	public void modificarUsuario(UsuarioDto usuarioDto) {
+		Usuario usuario = new Usuario();
+		//usuario = findByPk(usuarioDto.getUsuarioId());
+		usuario.setUsuarioId(usuarioDto.getUsuarioId());
+		usuario.setCedula(usuarioDto.getCedula());
+		usuario.setNombre(usuarioDto.getNombre());
+		usuario.setCargo(usuarioDto.getCargo());
+		usuario.setCorreoElectronico(usuarioDto.getCorreoElectronico());
+		usuario.setTelefono(usuarioDto.getTelefono());
+		usuario.setContrasena(usuarioDto.getContrasena());
+		usuario.setEstado(usuarioDto.getEstado());
+		usuario.setFechaCreacion(usuarioDto.getFechaCreacion());
+		usuario.setFechaModificacion(new Timestamp (new Date().getTime()));
+		update(usuario);
 	}
 
 }
