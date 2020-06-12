@@ -8,4 +8,5 @@ import ec.gob.dinardap.seguridad.modelo.AsignacionInstitucion;
 @Local
 public interface AsignacionInstitucionServicio extends GenericService<AsignacionInstitucion, Integer> {
 
+	public void asiganrUsuarioInstitucion(Integer usuarioId, Integer institucionId);
 }
