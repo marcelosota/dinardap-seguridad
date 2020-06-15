@@ -13,6 +13,7 @@ import ec.gob.dinardap.persistence.servicio.impl.GenericServiceImpl;
 import ec.gob.dinardap.persistence.util.Criteria;
 import ec.gob.dinardap.seguridad.dao.UsuarioDao;
 import ec.gob.dinardap.seguridad.dto.UsuarioDto;
+import ec.gob.dinardap.seguridad.dto.ValidacionDto;
 import ec.gob.dinardap.seguridad.modelo.Usuario;
 import ec.gob.dinardap.seguridad.servicio.UsuarioServicio;
 import ec.gob.dinardap.util.constante.EstadoEnum;
@@ -71,6 +72,11 @@ public class UsuarioServicioImpl extends GenericServiceImpl<Usuario, Integer> im
 		usuario.setFechaCreacion(usuarioDto.getFechaCreacion());
 		usuario.setFechaModificacion(new Timestamp (new Date().getTime()));
 		update(usuario);
+	}
+	
+	@Override
+	public ValidacionDto validarUsuario(String identificacion, String contrasena, Integer sistemaId) {
+		return usuarioDao.validarUsuario(identificacion, contrasena, sistemaId);
 	}
 
 }
