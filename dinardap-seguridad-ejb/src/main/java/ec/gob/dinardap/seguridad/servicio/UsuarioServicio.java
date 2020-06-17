@@ -14,4 +14,5 @@ public interface UsuarioServicio extends GenericService<Usuario, Integer> {
 	public UsuarioDto crearUsuario(UsuarioDto usuarioDto);
 	public void modificarUsuario(UsuarioDto usuarioDto);
 	public ValidacionDto validarUsuario(String identificacion, String contrasena, Integer sistemaId);
+	public void actualizarContrasena(String identificacion, String contrasena);
 }

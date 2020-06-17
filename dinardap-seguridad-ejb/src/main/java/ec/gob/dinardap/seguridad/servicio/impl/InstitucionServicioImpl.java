@@ -91,5 +91,24 @@ public class InstitucionServicioImpl extends GenericServiceImpl<Institucion, Int
 		else
 			return false;
 	}
+	
+	@Override
+	public void actualizarInstitucion(InstitucionDto institucionDto) {
+		Institucion institucion = new Institucion();
+		institucion.setCanton(new Canton());
+		institucion.setTipoInstitucion(new TipoInstitucion());
+		institucion.setInstitucionId(institucionDto.getInstitucionId());
+		institucion.setRuc(institucionDto.getRuc());
+		institucion.setNombre(institucionDto.getNombre());
+		institucion.setSiglas(institucionDto.getSiglas());
+		institucion.setCodigoIs(institucionDto.getCodigoIs());
+		institucion.getCanton().setCantonId(institucionDto.getCantonId());
+		institucion.getTipoInstitucion().setTipoInstitucionId(institucionDto.getTipoInstitucionId());
+		institucion.setEstado(institucionDto.getEstado());
+		institucion.setInstitucion(new Institucion());
+		institucion.getInstitucion().setInstitucionId(institucionDto.getAdscrita());
+		institucion.setFechaModificacion(new Timestamp (new Date().getTime()));
+		update(institucion);
+	}
 
 }

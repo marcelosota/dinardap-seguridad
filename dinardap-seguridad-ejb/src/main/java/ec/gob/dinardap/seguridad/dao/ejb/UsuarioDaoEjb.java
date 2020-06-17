@@ -49,10 +49,10 @@ public class UsuarioDaoEjb extends GenericDaoEjb<Usuario, Integer> implements Us
 				if(flag) {
 					validacion.setUsuarioId(Integer.parseInt(item[0].toString()));
 					validacion.setInstitucionId(Integer.parseInt(item[1].toString()));
-					validacion.setPerfil(item[2].toString());
+					validacion.setPerfil(item[3].toString().replace("\"", "'"));
 					flag = false;
 				}else
-					validacion.setPerfil(validacion.getPerfil().concat(",").concat(item[2].toString()));
+					validacion.setPerfil(validacion.getPerfil().concat(",").concat(item[3].toString().replace("\"", "'")));
 			}
 		}
 		return validacion;
