@@ -94,5 +94,19 @@ public class UsuarioServicioImpl extends GenericServiceImpl<Usuario, Integer> im
 		usuario.setFechaModificacion(new Timestamp(new Date().getTime()));
 		update(usuario);
 	}
+	
+	@Override
+	public Usuario verificarCredenciales(String cedula, String contrasena) {
+		String[] criteriaNombres = {"cedula","contrasena"};
+		CriteriaTypeEnum[] criteriaTipos = {CriteriaTypeEnum.STRING_EQUALS, CriteriaTypeEnum.STRING_EQUALS};
+		Object[] criteriaValores = {cedula, contrasena};
+		
+		Criteria criteria = new Criteria(criteriaNombres, criteriaTipos, criteriaValores);
+		List<Usuario> listado = findByCriterias(criteria);
+		if(listado != null && listado.size() == 1) {
+			return listado.get(0);
+		}else
+			return null;
+	}
 
 }
