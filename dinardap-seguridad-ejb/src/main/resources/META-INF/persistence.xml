@@ -5,7 +5,7 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="seguridad-pu">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<jta-data-source>java:jboss/datasources/dinardapDS-pre</jta-data-source>
+		<jta-data-source>java:jboss/datasources/dinardapDS-P</jta-data-source>
 		<class>ec.gob.dinardap.geografico.modelo.Canton</class>
 		<class>ec.gob.dinardap.geografico.modelo.Parroquia</class>
 		<class>ec.gob.dinardap.geografico.modelo.Provincia</class>

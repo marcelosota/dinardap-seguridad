@@ -105,10 +105,25 @@ public class InstitucionServicioImpl extends GenericServiceImpl<Institucion, Int
 		institucion.getCanton().setCantonId(institucionDto.getCantonId());
 		institucion.getTipoInstitucion().setTipoInstitucionId(institucionDto.getTipoInstitucionId());
 		institucion.setEstado(institucionDto.getEstado());
-		institucion.setInstitucion(new Institucion());
-		institucion.getInstitucion().setInstitucionId(institucionDto.getAdscrita());
+		institucion.setFechaRegistro(institucionDto.getFechaRegistro());
+		if(institucionDto.getAdscrita() != null) {
+			institucion.setInstitucion(new Institucion());
+			institucion.getInstitucion().setInstitucionId(institucionDto.getAdscrita());
+		}
+		
+			
 		institucion.setFechaModificacion(new Timestamp (new Date().getTime()));
 		update(institucion);
+	}
+	public List<Institucion> obtenerInstitucionPorCantonEstado(Integer cantonId, Short estado) {
+		String[] criteriaNombres = {"canton.cantonId", "estado"};
+		CriteriaTypeEnum[] criteriaTipos = {CriteriaTypeEnum.INTEGER_EQUALS, CriteriaTypeEnum.SHORT_EQUALS};
+		Object[] criteriaValores = {cantonId, estado};
+		String[] orderBy = {"nombre"};
+        boolean[] asc = {true};
+		
+		Criteria criteria = new Criteria(criteriaNombres, criteriaTipos, criteriaValores, orderBy, asc);
+		return findByCriterias(criteria);
 	}
 
 }

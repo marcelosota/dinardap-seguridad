@@ -16,4 +16,5 @@ public interface InstitucionServicio extends GenericService<Institucion, Integer
 	public List<Institucion> buscarInstitucionPorTipo(Integer tipoInstitucionId);
 	public boolean guardarInstitucion(InstitucionDto institucionDto);
 	public void actualizarInstitucion(InstitucionDto institucionDto);
+	public List<Institucion> obtenerInstitucionPorCantonEstado(Integer cantonId, Short estado);
 }
