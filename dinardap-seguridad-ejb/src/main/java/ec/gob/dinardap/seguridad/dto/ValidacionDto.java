@@ -3,7 +3,7 @@ package ec.gob.dinardap.seguridad.dto;
 public class ValidacionDto {
 
 	public Integer usuarioId;
-	public Integer institucionId;
+	public String institucionId;
 	public String perfil;
 	
 	public Integer getUsuarioId() {
@@ -12,10 +12,10 @@ public class ValidacionDto {
 	public void setUsuarioId(Integer usuarioId) {
 		this.usuarioId = usuarioId;
 	}
-	public Integer getInstitucionId() {
+	public String getInstitucionId() {
 		return institucionId;
 	}
-	public void setInstitucionId(Integer institucionId) {
+	public void setInstitucionId(String institucionId) {
 		this.institucionId = institucionId;
 	}
 	public String getPerfil() {

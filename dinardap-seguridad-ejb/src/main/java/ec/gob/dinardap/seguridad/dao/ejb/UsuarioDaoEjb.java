@@ -18,7 +18,7 @@ public class UsuarioDaoEjb extends GenericDaoEjb<Usuario, Integer> implements Us
 		super(Usuario.class);
 	}
 
-	@SuppressWarnings("unchecked")
+	/*@SuppressWarnings("unchecked")
 	@Override
 	public ValidacionDto validarUsuario(String identificacion, String contrasena, Integer sistemaId) {
 		ValidacionDto validacion = null;
@@ -56,6 +56,48 @@ public class UsuarioDaoEjb extends GenericDaoEjb<Usuario, Integer> implements Us
 			}
 		}
 		return validacion;
-	}
+	}*/
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public ValidacionDto validarUsuario(String identificacion, String contrasena, Integer sistemaId) {
+		ValidacionDto validacion = null;
+		
+		StringBuilder sql = new StringBuilder("select u.usuario_id, ");
+		sql.append("array_to_string(array_agg(distinct ai.institucion_id), ', ') miinstitucion, ");
+		sql.append("array_to_string(array_agg(distinct p.perfil_id order by p.perfil_id asc), ', ') miperfil, "); 
+		sql.append("array_to_string(array_agg(distinct p.nombre), ', ') nombre ");
+		sql.append("from ec_dinardap_seguridad.usuario u ");
+		sql.append("inner join ec_dinardap_seguridad.usuario_perfil up on u.usuario_id = up.usuario_id ");
+		sql.append("inner join ec_dinardap_seguridad.perfil p on p.perfil_id = up.perfil_id ");
+		sql.append("inner join ec_dinardap_seguridad.asignacion_institucion ai on u.usuario_id = ai.usuario_id  ");
+		sql.append("inner join ec_dinardap_seguridad.institucion i on i.institucion_id = ai.institucion_id ");
+		sql.append("where ");
+		sql.append(" u.cedula = '").append(identificacion).append("'");
+		sql.append(" and u.contrasena = '").append(contrasena).append("'");
+		sql.append(" and p.sistema_id = ").append(sistemaId);
+		sql.append(" and u.estado = ").append(EstadoEnum.ACTIVO.getEstado());
+		sql.append(" and p.estado = ").append(EstadoEnum.ACTIVO.getEstado());
+		sql.append(" and up.estado = ").append(EstadoEnum.ACTIVO.getEstado());
+		sql.append(" and ai.estado = ").append(EstadoEnum.ACTIVO.getEstado());
+		sql.append(" and i.estado = ").append(EstadoEnum.ACTIVO.getEstado());
+		sql.append(" group by 1");
+
+
+		Query query = em.createNativeQuery(sql.toString());
+		List<Object[]> lista = query.getResultList();
+		
+		if(lista != null && lista.size() > 0) {
+			validacion = new ValidacionDto();
+			for(Object[] item : lista) {
+				validacion.setUsuarioId(Integer.parseInt(item[0].toString()));
+				//validacion.setInstitucionId((Integer[]) item[1]);
+				validacion.setInstitucionId(item[1].toString());
+				validacion.setPerfil(item[2].toString());
+				
+				
+			}
+		}
+		return validacion;
+	}
 }
