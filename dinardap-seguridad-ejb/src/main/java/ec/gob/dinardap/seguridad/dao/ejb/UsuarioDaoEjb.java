@@ -18,7 +18,7 @@ public class UsuarioDaoEjb extends GenericDaoEjb<Usuario, Integer> implements Us
 		super(Usuario.class);
 	}
 
-	/*@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	@Override
 	public ValidacionDto validarUsuario(String identificacion, String contrasena, Integer sistemaId) {
 		ValidacionDto validacion = null;
@@ -49,18 +49,18 @@ public class UsuarioDaoEjb extends GenericDaoEjb<Usuario, Integer> implements Us
 				if(flag) {
 					validacion.setUsuarioId(Integer.parseInt(item[0].toString()));
 					validacion.setInstitucionId(Integer.parseInt(item[1].toString()));
-					validacion.setPerfil(item[3].toString().replace("\"", "'"));
+					validacion.setPerfil(item[2].toString().replace("\"", "'"));
 					flag = false;
 				}else
 					validacion.setPerfil(validacion.getPerfil().concat(",").concat(item[3].toString().replace("\"", "'")));
 			}
 		}
 		return validacion;
-	}*/
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ValidacionDto validarUsuario(String identificacion, String contrasena, Integer sistemaId) {
+	public ValidacionDto validarUsuarioArreglo(String identificacion, String contrasena, Integer sistemaId) {
 		ValidacionDto validacion = null;
 		
 		StringBuilder sql = new StringBuilder("select u.usuario_id, ");
@@ -92,7 +92,7 @@ public class UsuarioDaoEjb extends GenericDaoEjb<Usuario, Integer> implements Us
 			for(Object[] item : lista) {
 				validacion.setUsuarioId(Integer.parseInt(item[0].toString()));
 				//validacion.setInstitucionId((Integer[]) item[1]);
-				validacion.setInstitucionId(item[1].toString());
+				validacion.setInstitucion(item[1].toString());
 				validacion.setPerfil(item[2].toString());
 				
 				

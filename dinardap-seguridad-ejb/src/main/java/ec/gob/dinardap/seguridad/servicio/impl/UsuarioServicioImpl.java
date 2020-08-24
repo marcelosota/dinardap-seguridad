@@ -83,7 +83,7 @@ public class UsuarioServicioImpl extends GenericServiceImpl<Usuario, Integer> im
 	
 	@Override
 	public ValidacionDto validarUsuario(String identificacion, String contrasena, Integer sistemaId) {
-		return usuarioDao.validarUsuario(identificacion, contrasena, sistemaId);
+		return usuarioDao.validarUsuarioArreglo(identificacion, contrasena, sistemaId);
 	}
 	
 	@Override

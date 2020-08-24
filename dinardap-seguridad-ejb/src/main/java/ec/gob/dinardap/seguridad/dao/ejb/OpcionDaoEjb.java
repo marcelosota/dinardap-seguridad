@@ -101,5 +101,24 @@ public class OpcionDaoEjb extends GenericDaoEjb<Opcion, Integer> implements Opci
 		
 		return query.getResultList();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Opcion> obtenerOpcionesPerfilId(String perfil) {
+		Query query = em.createQuery("select distinct o "
+				+ "from Opcion o, "
+				+ "in (o.permisos) p, "
+				+ "in (p.perfil) f "
+				+ "where "
+				+ "f.perfilId in (:perfilId) "
+				+ "and o.estado = :estado "
+				+ "and o.nivel = 1"
+				+ " order by o.nivel, o.orden");
+		
+		query.setParameter("perfilId", perfil);
+		query.setParameter("estado", EstadoEnum.ACTIVO.getEstado());
+		
+		return query.getResultList();
+	}
 
 }

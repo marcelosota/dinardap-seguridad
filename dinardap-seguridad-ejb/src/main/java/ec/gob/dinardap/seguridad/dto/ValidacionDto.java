@@ -3,8 +3,9 @@ package ec.gob.dinardap.seguridad.dto;
 public class ValidacionDto {
 
 	public Integer usuarioId;
-	public String institucionId;
+	public Integer institucionId;
 	public String perfil;
+	private String institucion;
 	
 	public Integer getUsuarioId() {
 		return usuarioId;
@@ -12,10 +13,10 @@ public class ValidacionDto {
 	public void setUsuarioId(Integer usuarioId) {
 		this.usuarioId = usuarioId;
 	}
-	public String getInstitucionId() {
+	public Integer getInstitucionId() {
 		return institucionId;
 	}
-	public void setInstitucionId(String institucionId) {
+	public void setInstitucionId(Integer institucionId) {
 		this.institucionId = institucionId;
 	}
 	public String getPerfil() {
@@ -23,5 +24,11 @@ public class ValidacionDto {
 	}
 	public void setPerfil(String perfil) {
 		this.perfil = perfil;
+	}
+	public String getInstitucion() {
+		return institucion;
+	}
+	public void setInstitucion(String institucion) {
+		this.institucion = institucion;
 	}
 }
