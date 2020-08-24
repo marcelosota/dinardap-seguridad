@@ -93,9 +93,7 @@ public class UsuarioDaoEjb extends GenericDaoEjb<Usuario, Integer> implements Us
 				validacion.setUsuarioId(Integer.parseInt(item[0].toString()));
 				//validacion.setInstitucionId((Integer[]) item[1]);
 				validacion.setInstitucionId(item[1].toString());
-				validacion.setPerfil(item[2].toString());
-				
-				
+				validacion.setPerfil(item[3].toString());		
 			}
 		}
 		return validacion;
