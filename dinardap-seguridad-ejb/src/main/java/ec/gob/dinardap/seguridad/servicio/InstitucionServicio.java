@@ -11,11 +11,18 @@ import ec.gob.dinardap.seguridad.modelo.Institucion;
 @Local
 public interface InstitucionServicio extends GenericService<Institucion, Integer> {
 
-	public List<Institucion> obtenerInstitucionesTipoCantonEstado(Integer tipoInstitucionId, Integer cantonId, Short estado);
-	public Institucion buscarInsttucionPorRuc(String ruc);
-	public List<Institucion> buscarInstitucionPorTipo(Integer tipoInstitucionId);
-	public boolean guardarInstitucion(InstitucionDto institucionDto);
-	public void actualizarInstitucion(InstitucionDto institucionDto);
-	public List<Institucion> obtenerInstitucionPorCantonEstado(Integer cantonId, Short estado);
-        
+    public List<Institucion> obtenerInstitucionesTipoCantonEstado(Integer tipoInstitucionId, Integer cantonId, Short estado);
+
+    public Institucion buscarInsttucionPorRuc(String ruc);
+
+    public List<Institucion> buscarInstitucionPorTipo(Integer tipoInstitucionId);
+
+    public boolean guardarInstitucion(InstitucionDto institucionDto);
+
+    public void actualizarInstitucion(InstitucionDto institucionDto);
+
+    public List<Institucion> obtenerInstitucionPorCantonEstado(Integer cantonId, Short estado);
+
+    public List<Institucion> obtenerInstitucionPorCantonEstado(Integer cantonId, Short estado, List<Integer> tipoInstitucionId);
+
 }

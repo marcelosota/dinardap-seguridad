@@ -20,110 +20,118 @@ import ec.gob.dinardap.seguridad.modelo.TipoInstitucion;
 import ec.gob.dinardap.seguridad.servicio.InstitucionServicio;
 import ec.gob.dinardap.util.constante.EstadoEnum;
 
-@Stateless(name="InstitucionServicio")
+@Stateless(name = "InstitucionServicio")
 public class InstitucionServicioImpl extends GenericServiceImpl<Institucion, Integer> implements InstitucionServicio {
 
-	@EJB
-	private InstitucionDao institucionDao;
-	@Override
-	public GenericDao<Institucion, Integer> getDao() {
-		return institucionDao;
-	}
-	@Override
-	public List<Institucion> obtenerInstitucionesTipoCantonEstado(Integer tipoInstitucionId, Integer cantonId, Short estado) {
-		String[] criteriaNombres = {"tipoInstitucion.tipoInstitucionId", "canton.cantonId", "estado"};
-		CriteriaTypeEnum[] criteriaTipos = {CriteriaTypeEnum.INTEGER_EQUALS, CriteriaTypeEnum.INTEGER_EQUALS, CriteriaTypeEnum.SHORT_EQUALS};
-		Object[] criteriaValores = {tipoInstitucionId, cantonId, estado};
-		String[] orderBy = {"nombre"};
+    @EJB
+    private InstitucionDao institucionDao;
+
+    @Override
+    public GenericDao<Institucion, Integer> getDao() {
+        return institucionDao;
+    }
+
+    @Override
+    public List<Institucion> obtenerInstitucionesTipoCantonEstado(Integer tipoInstitucionId, Integer cantonId, Short estado) {
+        String[] criteriaNombres = {"tipoInstitucion.tipoInstitucionId", "canton.cantonId", "estado"};
+        CriteriaTypeEnum[] criteriaTipos = {CriteriaTypeEnum.INTEGER_EQUALS, CriteriaTypeEnum.INTEGER_EQUALS, CriteriaTypeEnum.SHORT_EQUALS};
+        Object[] criteriaValores = {tipoInstitucionId, cantonId, estado};
+        String[] orderBy = {"nombre"};
         boolean[] asc = {true};
-		
-		Criteria criteria = new Criteria(criteriaNombres, criteriaTipos, criteriaValores, orderBy, asc);
-		return findByCriterias(criteria);
-	}
-	
-	@Override
-	public Institucion buscarInsttucionPorRuc(String ruc) {
-		String[] criteriaNombres = {"ruc"};
-		CriteriaTypeEnum[] criteriaTipos = {CriteriaTypeEnum.STRING_EQUALS};
-		Object[] criteriaValores = {ruc};
-		
-		Criteria criteria = new Criteria(criteriaNombres, criteriaTipos, criteriaValores);
-		List<Institucion> lista = new ArrayList<Institucion>();
-		lista = findByCriterias(criteria);
-		if(lista != null && lista.size() > 0)
-			return lista.get(0);
-		else
-			return null;
-	}
-	
-	@Override
-	public List<Institucion> buscarInstitucionPorTipo(Integer tipoInstitucionId) {
-		String[] criteriaNombres = {"tipoInstitucion.tipoInstitucionId", "estado"};
-		CriteriaTypeEnum[] criteriaTipos = {CriteriaTypeEnum.INTEGER_EQUALS, CriteriaTypeEnum.SHORT_EQUALS};
-		Object[] criteriaValores = {tipoInstitucionId, EstadoEnum.ACTIVO.getEstado()};
-		String[] orderBy = {"nombre"};
+
+        Criteria criteria = new Criteria(criteriaNombres, criteriaTipos, criteriaValores, orderBy, asc);
+        return findByCriterias(criteria);
+    }
+
+    @Override
+    public Institucion buscarInsttucionPorRuc(String ruc) {
+        String[] criteriaNombres = {"ruc"};
+        CriteriaTypeEnum[] criteriaTipos = {CriteriaTypeEnum.STRING_EQUALS};
+        Object[] criteriaValores = {ruc};
+
+        Criteria criteria = new Criteria(criteriaNombres, criteriaTipos, criteriaValores);
+        List<Institucion> lista = new ArrayList<Institucion>();
+        lista = findByCriterias(criteria);
+        if (lista != null && lista.size() > 0) {
+            return lista.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Institucion> buscarInstitucionPorTipo(Integer tipoInstitucionId) {
+        String[] criteriaNombres = {"tipoInstitucion.tipoInstitucionId", "estado"};
+        CriteriaTypeEnum[] criteriaTipos = {CriteriaTypeEnum.INTEGER_EQUALS, CriteriaTypeEnum.SHORT_EQUALS};
+        Object[] criteriaValores = {tipoInstitucionId, EstadoEnum.ACTIVO.getEstado()};
+        String[] orderBy = {"nombre"};
         boolean[] asc = {true};
-		
-		Criteria criteria = new Criteria(criteriaNombres, criteriaTipos, criteriaValores, orderBy, asc);
-		return findByCriterias(criteria);
-	}
-	
-	@Override
-	public boolean guardarInstitucion(InstitucionDto institucionDto) {
-		Institucion institucion = new Institucion();
-		institucion.setCanton(new Canton());
-		institucion.setTipoInstitucion(new TipoInstitucion());
-		institucion.setRuc(institucionDto.getRuc());
-		institucion.setNombre(institucionDto.getNombre());
-		institucion.setSiglas(institucionDto.getSiglas());
-		institucion.setCodigoIs(institucionDto.getCodigoIs());
-		institucion.getCanton().setCantonId(institucionDto.getCantonId());
-		institucion.getTipoInstitucion().setTipoInstitucionId(institucionDto.getTipoInstitucionId());
-		institucion.setEstado(EstadoEnum.ACTIVO.getEstado());
-		if(institucionDto.getAdscrita() != null) {
-			institucion.setInstitucion(new Institucion());
-			institucion.getInstitucion().setInstitucionId(institucionDto.getAdscrita());
-		}
-		institucion.setFechaRegistro(new Timestamp (new Date().getTime()));
-		create(institucion);
-		if(institucion.getInstitucionId() != null)
-			return true;
-		else
-			return false;
-	}
-	
-	@Override
-	public void actualizarInstitucion(InstitucionDto institucionDto) {
-		Institucion institucion = new Institucion();
-		institucion.setCanton(new Canton());
-		institucion.setTipoInstitucion(new TipoInstitucion());
-		institucion.setInstitucionId(institucionDto.getInstitucionId());
-		institucion.setRuc(institucionDto.getRuc());
-		institucion.setNombre(institucionDto.getNombre());
-		institucion.setSiglas(institucionDto.getSiglas());
-		institucion.setCodigoIs(institucionDto.getCodigoIs());
-		institucion.getCanton().setCantonId(institucionDto.getCantonId());
-		institucion.getTipoInstitucion().setTipoInstitucionId(institucionDto.getTipoInstitucionId());
-		institucion.setEstado(institucionDto.getEstado());
-		institucion.setFechaRegistro(institucionDto.getFechaRegistro());
-		if(institucionDto.getAdscrita() != null) {
-			institucion.setInstitucion(new Institucion());
-			institucion.getInstitucion().setInstitucionId(institucionDto.getAdscrita());
-		}
-		
-			
-		institucion.setFechaModificacion(new Timestamp (new Date().getTime()));
-		update(institucion);
-	}
-	public List<Institucion> obtenerInstitucionPorCantonEstado(Integer cantonId, Short estado) {
-		String[] criteriaNombres = {"canton.cantonId", "estado"};
-		CriteriaTypeEnum[] criteriaTipos = {CriteriaTypeEnum.INTEGER_EQUALS, CriteriaTypeEnum.SHORT_EQUALS};
-		Object[] criteriaValores = {cantonId, estado};
-		String[] orderBy = {"nombre"};
+
+        Criteria criteria = new Criteria(criteriaNombres, criteriaTipos, criteriaValores, orderBy, asc);
+        return findByCriterias(criteria);
+    }
+
+    @Override
+    public boolean guardarInstitucion(InstitucionDto institucionDto) {
+        Institucion institucion = new Institucion();
+        institucion.setCanton(new Canton());
+        institucion.setTipoInstitucion(new TipoInstitucion());
+        institucion.setRuc(institucionDto.getRuc());
+        institucion.setNombre(institucionDto.getNombre());
+        institucion.setSiglas(institucionDto.getSiglas());
+        institucion.setCodigoIs(institucionDto.getCodigoIs());
+        institucion.getCanton().setCantonId(institucionDto.getCantonId());
+        institucion.getTipoInstitucion().setTipoInstitucionId(institucionDto.getTipoInstitucionId());
+        institucion.setEstado(EstadoEnum.ACTIVO.getEstado());
+        if (institucionDto.getAdscrita() != null) {
+            institucion.setInstitucion(new Institucion());
+            institucion.getInstitucion().setInstitucionId(institucionDto.getAdscrita());
+        }
+        institucion.setFechaRegistro(new Timestamp(new Date().getTime()));
+        create(institucion);
+        if (institucion.getInstitucionId() != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public void actualizarInstitucion(InstitucionDto institucionDto) {
+        Institucion institucion = new Institucion();
+        institucion.setCanton(new Canton());
+        institucion.setTipoInstitucion(new TipoInstitucion());
+        institucion.setInstitucionId(institucionDto.getInstitucionId());
+        institucion.setRuc(institucionDto.getRuc());
+        institucion.setNombre(institucionDto.getNombre());
+        institucion.setSiglas(institucionDto.getSiglas());
+        institucion.setCodigoIs(institucionDto.getCodigoIs());
+        institucion.getCanton().setCantonId(institucionDto.getCantonId());
+        institucion.getTipoInstitucion().setTipoInstitucionId(institucionDto.getTipoInstitucionId());
+        institucion.setEstado(institucionDto.getEstado());
+        institucion.setFechaRegistro(institucionDto.getFechaRegistro());
+        if (institucionDto.getAdscrita() != null) {
+            institucion.setInstitucion(new Institucion());
+            institucion.getInstitucion().setInstitucionId(institucionDto.getAdscrita());
+        }
+
+        institucion.setFechaModificacion(new Timestamp(new Date().getTime()));
+        update(institucion);
+    }
+
+    public List<Institucion> obtenerInstitucionPorCantonEstado(Integer cantonId, Short estado) {
+        String[] criteriaNombres = {"canton.cantonId", "estado"};
+        CriteriaTypeEnum[] criteriaTipos = {CriteriaTypeEnum.INTEGER_EQUALS, CriteriaTypeEnum.SHORT_EQUALS};
+        Object[] criteriaValores = {cantonId, estado};
+        String[] orderBy = {"nombre"};
         boolean[] asc = {true};
-		
-		Criteria criteria = new Criteria(criteriaNombres, criteriaTipos, criteriaValores, orderBy, asc);
-		return findByCriterias(criteria);
-	}
+
+        Criteria criteria = new Criteria(criteriaNombres, criteriaTipos, criteriaValores, orderBy, asc);
+        return findByCriterias(criteria);
+    }
+
+    public List<Institucion> obtenerInstitucionPorCantonEstado(Integer cantonId, Short estado, List<Integer> tipoInstitucionId) {
+        return institucionDao.obtenerInstitucionPorCantonEstado(cantonId, estado, tipoInstitucionId);
+    }
 
 }
