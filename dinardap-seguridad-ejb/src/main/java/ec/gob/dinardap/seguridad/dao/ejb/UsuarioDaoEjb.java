@@ -64,9 +64,9 @@ public class UsuarioDaoEjb extends GenericDaoEjb<Usuario, Integer> implements Us
         ValidacionDto validacion = null;
 
         StringBuilder sql = new StringBuilder("select u.usuario_id, ");
-        sql.append("array_to_string(array_agg(distinct ai.institucion_id), ', ') miinstitucion, ");
-        sql.append("array_to_string(array_agg(distinct p.perfil_id order by p.perfil_id asc), ', ') miperfil, ");
-        sql.append("array_to_string(array_agg(distinct p.nombre), ', ') nombre ");
+        sql.append("array_to_string(array_agg(distinct ai.institucion_id), ',') miinstitucion, ");
+        sql.append("array_to_string(array_agg(distinct p.perfil_id order by p.perfil_id asc), ',') miperfil, ");
+        sql.append("array_to_string(array_agg(distinct p.nombre), ',') nombre ");
         sql.append("from ec_dinardap_seguridad.usuario u ");
         sql.append("inner join ec_dinardap_seguridad.usuario_perfil up on u.usuario_id = up.usuario_id ");
         sql.append("inner join ec_dinardap_seguridad.perfil p on p.perfil_id = up.perfil_id ");
