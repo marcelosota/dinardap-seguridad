@@ -9,7 +9,9 @@ import ec.gob.dinardap.persistence.dao.ejb.GenericDaoEjb;
 import ec.gob.dinardap.seguridad.dao.UsuarioDao;
 import ec.gob.dinardap.seguridad.dto.ValidacionDto;
 import ec.gob.dinardap.seguridad.modelo.Usuario;
+import ec.gob.dinardap.seguridad.modelo.UsuarioPerfil;
 import ec.gob.dinardap.util.constante.EstadoEnum;
+import java.util.ArrayList;
 
 @Stateless(name = "UsuarioDao")
 public class UsuarioDaoEjb extends GenericDaoEjb<Usuario, Integer> implements UsuarioDao {
@@ -96,4 +98,25 @@ public class UsuarioDaoEjb extends GenericDaoEjb<Usuario, Integer> implements Us
         }
         return validacion;
     }
+
+    @Override
+    public List<Usuario> obtenerUsuariosActivosSistema(Integer sistemaId) {
+        List<UsuarioPerfil> usuarioPerfilList = new ArrayList<UsuarioPerfil>();
+        Query query = em.createQuery("SELECT up FROM UsuarioPerfil up WHERE up.perfil.sistema.sistemaId=:sistemaId AND up.usuario.estado=:estado");
+        query.setParameter("sistemaId", sistemaId);
+        query.setParameter("estado",EstadoEnum.ACTIVO.getEstado());
+        usuarioPerfilList = query.getResultList();
+        List<Usuario> usuarioList = new ArrayList<Usuario>();
+        for(UsuarioPerfil usuarioPerfil:usuarioPerfilList){
+            usuarioPerfil.getUsuario().getUsuarioId();
+            usuarioList.add(usuarioPerfil.getUsuario());
+        }
+        query = em.createQuery("SELECT up FROM UsuarioPerfil up INNER JOIN up.usuario.asignacionInstitucions ai WHERE up.perfil.perfilId=4 and ai.institucion.tipoInstitucion= "
+                + "up.perfil.sistema.sistemaId=:sistemaId AND ai.institucion.estado=:estado");
+        return usuarioList;
+        
+        
+    }
+    
+    
 }

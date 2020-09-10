@@ -4,8 +4,10 @@ import javax.ejb.Stateless;
 
 import ec.gob.dinardap.persistence.dao.ejb.GenericDaoEjb;
 import ec.gob.dinardap.seguridad.dao.InstitucionDao;
-import ec.gob.dinardap.seguridad.dto.ValidacionDto;
+import ec.gob.dinardap.seguridad.modelo.AsignacionInstitucion;
 import ec.gob.dinardap.seguridad.modelo.Institucion;
+import ec.gob.dinardap.seguridad.modelo.Usuario;
+import ec.gob.dinardap.seguridad.modelo.UsuarioPerfil;
 import ec.gob.dinardap.util.constante.EstadoEnum;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +38,23 @@ public class InstitucionDaoEjb extends GenericDaoEjb<Institucion, Integer> imple
         query.setParameter("estado",EstadoEnum.ACTIVO.getEstado());
         query.setParameter("institucionIdList", institucionIdList);
         return query.getResultList();
+    }
+
+    @Override
+    public List<Institucion> obtenerInstitucionesActivasSistema(Integer sistemaId) {
+        List<UsuarioPerfil> usuarioPerfilList = new ArrayList<UsuarioPerfil>();
+        Query query = em.createQuery("SELECT up FROM UsuarioPerfil up INNER JOIN up.usuario.asignacionInstitucions ai WHERE up.perfil.sistema.sistemaId=:sistemaId AND ai.institucion.estado=:estado");
+        query.setParameter("sistemaId", sistemaId);
+        query.setParameter("estado",EstadoEnum.ACTIVO.getEstado());
+        usuarioPerfilList = query.getResultList();
+        List<Institucion> institucionList = new ArrayList<Institucion>();
+        for(UsuarioPerfil usuarioPerfil:usuarioPerfilList){
+            for(AsignacionInstitucion asignacionInstitucion:usuarioPerfil.getUsuario().getAsignacionInstitucions()){
+                asignacionInstitucion.getInstitucion().getInstitucionId();
+                institucionList.add(asignacionInstitucion.getInstitucion());
+            }            
+        }
+        return institucionList;
     }
 
 }
