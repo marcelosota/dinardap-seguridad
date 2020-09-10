@@ -28,4 +28,14 @@ public class InstitucionDaoEjb extends GenericDaoEjb<Institucion, Integer> imple
         return query.getResultList();
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Institucion> obtenerHijosPorInstitucion(List<Integer> institucionIdList, Integer tipoInstitucion) {
+        Query query = em.createQuery("SELECT i FROM Institucion i WHERE i.tipoInstitucion=:tipoInstitucion AND i.estado=:estado i.institucion.institucionId IN :institucionIdList");
+        query.setParameter("tipoInstitucion", tipoInstitucion);
+        query.setParameter("estado",EstadoEnum.ACTIVO.getEstado());
+        query.setParameter("institucionIdList", institucionIdList);
+        return query.getResultList();
+    }
+
 }

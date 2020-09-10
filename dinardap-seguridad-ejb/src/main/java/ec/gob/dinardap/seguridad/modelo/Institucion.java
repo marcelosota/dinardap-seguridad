@@ -79,7 +79,7 @@ public class Institucion implements Serializable {
 
 	//bi-directional many-to-one association to Institucion
 	@OneToMany(mappedBy="institucion")
-	private List<Institucion> institucions;
+	private List<Institucion> institucionList;
 
 	//bi-directional many-to-one association to TipoInstitucion
 	@ManyToOne
@@ -213,23 +213,23 @@ public class Institucion implements Serializable {
 		this.institucion = institucion;
 	}
 
-	public List<Institucion> getInstitucions() {
-		return this.institucions;
+	public List<Institucion> getInstitucionList() {
+		return this.institucionList;
 	}
 
-	public void setInstitucions(List<Institucion> institucions) {
-		this.institucions = institucions;
+	public void setInstitucionList(List<Institucion> institucionList) {
+		this.institucionList = institucionList;
 	}
 
 	public Institucion addInstitucion(Institucion institucion) {
-		getInstitucions().add(institucion);
+		getInstitucionList().add(institucion);
 		institucion.setInstitucion(this);
 
 		return institucion;
 	}
 
 	public Institucion removeInstitucion(Institucion institucion) {
-		getInstitucions().remove(institucion);
+		getInstitucionList().remove(institucion);
 		institucion.setInstitucion(null);
 
 		return institucion;
