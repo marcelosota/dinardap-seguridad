@@ -13,4 +13,5 @@ public interface UsuarioDao extends GenericDao<Usuario, Integer> {
 	public ValidacionDto validarUsuario(String identificacion, String contrasena, Integer sistemaId);
 	public ValidacionDto validarUsuarioArreglo(String identificacion, String contrasena, Integer sistemaId);
         public List<Usuario> obtenerUsuariosActivosSistema(Integer sistemaId);
+        public List<Usuario> obtenerUsuariosPorInstitucionTipoPerfil(List<Integer> institucionIdList, List<Integer> tipoInstitucionList, Integer perfilId);
 }

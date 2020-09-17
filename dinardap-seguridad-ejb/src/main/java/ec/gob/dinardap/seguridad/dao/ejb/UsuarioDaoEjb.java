@@ -8,6 +8,7 @@ import javax.persistence.Query;
 import ec.gob.dinardap.persistence.dao.ejb.GenericDaoEjb;
 import ec.gob.dinardap.seguridad.dao.UsuarioDao;
 import ec.gob.dinardap.seguridad.dto.ValidacionDto;
+import ec.gob.dinardap.seguridad.modelo.Opcion;
 import ec.gob.dinardap.seguridad.modelo.Usuario;
 import ec.gob.dinardap.seguridad.modelo.UsuarioPerfil;
 import ec.gob.dinardap.util.constante.EstadoEnum;
@@ -111,12 +112,32 @@ public class UsuarioDaoEjb extends GenericDaoEjb<Usuario, Integer> implements Us
             usuarioPerfil.getUsuario().getUsuarioId();
             usuarioList.add(usuarioPerfil.getUsuario());
         }
-        query = em.createQuery("SELECT up FROM UsuarioPerfil up INNER JOIN up.usuario.asignacionInstitucions ai WHERE up.perfil.perfilId=4 and ai.institucion.tipoInstitucion= "
-                + "up.perfil.sistema.sistemaId=:sistemaId AND ai.institucion.estado=:estado");
-        return usuarioList;
-        
+        return usuarioList;        
         
     }
     
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Usuario> obtenerUsuariosPorInstitucionTipoPerfil(List<Integer> institucionIdList, List<Integer> tipoInstitucionList, Integer perfilId) {
+        String separador = ",";
+        String instituciones = String.join(separador, institucionIdList.toString());
+        String tiposInstitucion = String.join(separador, tipoInstitucionList.toString());
+        StringBuilder sql = new StringBuilder("SELECT u.usuario_id, u.cedula, u.nombre, u.correo_electronico ");
+        sql.append("FROM ec_dinardap_seguridad.usuario u ");
+        sql.append("INNER JOIN ec_dinardap_seguridad.usuario_perfil up ON u.usuario_id = up.usuario_id ");
+        sql.append("INNER JOIN ec_dinardap_seguridad.perfil p ON up.perfil_id = p.perfil_id ");
+        sql.append("INNER JOIN ec_dinardap_seguridad.asignacion_institucion ai ON u.usuario_id = ai.usuario_id ");
+        sql.append("INNER JOIN ec_dinardap_seguridad.institucion i ON ai.institucion_id = i.institucion_id ");
+        sql.append("WHERE i.institucion_id IN (").append(instituciones).append(") ");
+        sql.append("AND i.tipo_institucion_id IN (").append(tiposInstitucion).append(") ");
+        sql.append("AND p.perfil_id = ").append(perfilId);
+        sql.append(" AND ai.estado = ").append(EstadoEnum.ACTIVO.getEstado());
+        sql.append(" AND u.estado = ").append(EstadoEnum.ACTIVO.getEstado());
+        sql.append(" AND up.estado = ").append(EstadoEnum.ACTIVO.getEstado());
+        sql.append(" AND p.estado = ").append(EstadoEnum.ACTIVO.getEstado());
+
+        Query query = em.createNativeQuery(sql.toString(), Usuario.class);
+        return query.getResultList();
+    }
     
 }
