@@ -65,6 +65,7 @@ public class AsignacionInstitucionoServicioImpl extends GenericServiceImpl<Asign
 				fila.setAsignacionInstitucionId(item.getAsignacionInstitucionId());
 				fila.setRuc(item.getInstitucion().getRuc());
 				fila.setNombre(item.getInstitucion().getNombre());
+                                fila.setTipoInstitucion(item.getInstitucion().getTipoInstitucion().getDescripcion());
 				fila.setSiglas(item.getInstitucion().getSiglas());
 				fila.setFechaCreacion(item.getFechaCreacion());
 				if(item.getEstado() == EstadoEnum.ACTIVO.getEstado())
