@@ -6,7 +6,6 @@ import ec.gob.dinardap.persistence.dao.ejb.GenericDaoEjb;
 import ec.gob.dinardap.seguridad.dao.InstitucionDao;
 import ec.gob.dinardap.seguridad.modelo.AsignacionInstitucion;
 import ec.gob.dinardap.seguridad.modelo.Institucion;
-import ec.gob.dinardap.seguridad.modelo.Usuario;
 import ec.gob.dinardap.seguridad.modelo.UsuarioPerfil;
 import ec.gob.dinardap.util.constante.EstadoEnum;
 import java.util.ArrayList;
@@ -33,7 +32,7 @@ public class InstitucionDaoEjb extends GenericDaoEjb<Institucion, Integer> imple
     @SuppressWarnings("unchecked")
     @Override
     public List<Institucion> obtenerHijosPorInstitucion(List<Integer> institucionIdList, Integer tipoInstitucion) {
-        Query query = em.createQuery("SELECT i FROM Institucion i WHERE i.tipoInstitucion.tipoInstitucionId=:tipoInstitucion AND i.estado=:estado AND i.institucion.institucionId IN (:institucionIdList)");
+        Query query = em.createQuery("SELECT i FROM Institucion i WHERE i.tipoInstitucion.tipoInstitucionId = :tipoInstitucion AND i.estado = :estado AND i.institucion.institucionId IN (:institucionIdList)");
         query.setParameter("tipoInstitucion", tipoInstitucion);
         query.setParameter("estado",EstadoEnum.ACTIVO.getEstado());
         query.setParameter("institucionIdList", institucionIdList);
