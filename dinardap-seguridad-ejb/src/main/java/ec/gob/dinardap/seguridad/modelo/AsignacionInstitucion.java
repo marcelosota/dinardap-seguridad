@@ -31,12 +31,12 @@ public class AsignacionInstitucion implements Serializable {
 
 	//bi-directional many-to-one association to Institucion
 	@ManyToOne
-	@JoinColumn(name="institucion_id")
+	@JoinColumn(name="institucion_id", referencedColumnName = "institucion_id")
 	private Institucion institucion;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
-	@JoinColumn(name="usuario_id")
+	@JoinColumn(name="usuario_id", referencedColumnName = "usuario_id")
 	private Usuario usuario;
 
 	public AsignacionInstitucion() {

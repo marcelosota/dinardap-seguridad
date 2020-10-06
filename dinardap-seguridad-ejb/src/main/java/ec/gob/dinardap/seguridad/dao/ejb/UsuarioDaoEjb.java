@@ -8,7 +8,9 @@ import javax.persistence.Query;
 import ec.gob.dinardap.persistence.dao.ejb.GenericDaoEjb;
 import ec.gob.dinardap.seguridad.dao.UsuarioDao;
 import ec.gob.dinardap.seguridad.dto.ValidacionDto;
+import ec.gob.dinardap.seguridad.modelo.AsignacionInstitucion;
 import ec.gob.dinardap.seguridad.modelo.Opcion;
+import ec.gob.dinardap.seguridad.modelo.Respuesta;
 import ec.gob.dinardap.seguridad.modelo.Usuario;
 import ec.gob.dinardap.seguridad.modelo.UsuarioPerfil;
 import ec.gob.dinardap.util.constante.EstadoEnum;
@@ -105,17 +107,27 @@ public class UsuarioDaoEjb extends GenericDaoEjb<Usuario, Integer> implements Us
         List<UsuarioPerfil> usuarioPerfilList = new ArrayList<UsuarioPerfil>();
         Query query = em.createQuery("SELECT up FROM UsuarioPerfil up WHERE up.perfil.sistema.sistemaId=:sistemaId AND up.usuario.estado=:estado");
         query.setParameter("sistemaId", sistemaId);
-        query.setParameter("estado",EstadoEnum.ACTIVO.getEstado());
+        query.setParameter("estado", EstadoEnum.ACTIVO.getEstado());
         usuarioPerfilList = query.getResultList();
         List<Usuario> usuarioList = new ArrayList<Usuario>();
-        for(UsuarioPerfil usuarioPerfil:usuarioPerfilList){
+        for (UsuarioPerfil usuarioPerfil : usuarioPerfilList) {
             usuarioPerfil.getUsuario().getUsuarioId();
             usuarioList.add(usuarioPerfil.getUsuario());
         }
-        return usuarioList;        
-        
+        for (Usuario u : usuarioList) {
+            for (AsignacionInstitucion ai : u.getAsignacionInstitucions()) {
+                ai.getAsignacionInstitucionId();
+            }
+            for (UsuarioPerfil up : u.getUsuarioPerfilList()) {
+                up.getUsuarioPerfilId();
+            }
+            for (Respuesta r : u.getRespuestas()) {
+                r.getRespuestaId();
+            }
+        }
+        return usuarioList;
     }
-    
+
     @SuppressWarnings("unchecked")
     @Override
     public List<Usuario> obtenerUsuariosPorInstitucionTipoPerfil(List<Integer> institucionIdList, List<Integer> tipoInstitucionList, Integer perfilId) {
@@ -139,5 +151,5 @@ public class UsuarioDaoEjb extends GenericDaoEjb<Usuario, Integer> implements Us
         Query query = em.createNativeQuery(sql.toString(), Usuario.class);
         return query.getResultList();
     }
-    
+
 }

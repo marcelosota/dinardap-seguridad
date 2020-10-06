@@ -16,179 +16,190 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 /**
  * The persistent class for the usuario database table.
- * 
+ *
  */
 @Entity
-@Table(name="usuario", schema="ec_dinardap_seguridad")
-@NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
+@Table(name = "usuario", schema = "ec_dinardap_seguridad")
+@NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
 public class Usuario implements Serializable {
-	private static final long serialVersionUID = 1L;
 
-	@Id
-	@SequenceGenerator(name="USUARIO_USUARIOID_GENERATOR", sequenceName="usuario_usuario_id_seq", schema="ec_dinardap_seguridad", allocationSize = 1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USUARIO_USUARIOID_GENERATOR")
-	@Column(name="usuario_id")
-	private Integer usuarioId;
+    private static final long serialVersionUID = 1L;
 
-	private String cargo;
+    @Id
+    @SequenceGenerator(name = "USUARIO_USUARIOID_GENERATOR", sequenceName = "usuario_usuario_id_seq", schema = "ec_dinardap_seguridad", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USUARIO_USUARIOID_GENERATOR")
+    @Column(name = "usuario_id")
+    private Integer usuarioId;
 
-	private String cedula;
+    private String cargo;
 
-	private String contrasena;
+    private String cedula;
 
-	@Column(name="correo_electronico")
-	private String correoElectronico;
+    private String contrasena;
 
-	private Short estado;
+    @Column(name = "correo_electronico")
+    private String correoElectronico;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="fecha_creacion")
-	private Date fechaCreacion;
+    private Short estado;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="fecha_modificacion")
-	private Date fechaModificacion;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_creacion")
+    private Date fechaCreacion;
 
-	private String nombre;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_modificacion")
+    private Date fechaModificacion;
 
-	private String telefono;
+    private String nombre;
 
-	//bi-directional many-to-one association to AsignacionInstitucion
-	@OneToMany(mappedBy="usuario")
-	private List<AsignacionInstitucion> asignacionInstitucions;
-		
-	//bi-directional many-to-one association to Respuesta
-	@OneToMany(mappedBy="usuario")
-	private List<Respuesta> respuestas;
+    private String telefono;
 
-	public Usuario() {
-	}
+    //bi-directional many-to-one association to AsignacionInstitucion
+    @OneToMany(mappedBy = "usuario")
+    private List<AsignacionInstitucion> asignacionInstitucions;
 
-	public Integer getUsuarioId() {
-		return this.usuarioId;
-	}
+    @OneToMany(mappedBy = "usuario")
+    private List<UsuarioPerfil> usuarioPerfilList;
 
-	public void setUsuarioId(Integer usuarioId) {
-		this.usuarioId = usuarioId;
-	}
+    //bi-directional many-to-one association to Respuesta
+    @OneToMany(mappedBy = "usuario")
+    private List<Respuesta> respuestas;
 
-	public String getCargo() {
-		return this.cargo;
-	}
+    public Usuario() {
+    }
 
-	public void setCargo(String cargo) {
-		this.cargo = cargo;
-	}
+    public Integer getUsuarioId() {
+        return this.usuarioId;
+    }
 
-	public String getCedula() {
-		return this.cedula;
-	}
+    public void setUsuarioId(Integer usuarioId) {
+        this.usuarioId = usuarioId;
+    }
 
-	public void setCedula(String cedula) {
-		this.cedula = cedula;
-	}
+    public String getCargo() {
+        return this.cargo;
+    }
 
-	public String getContrasena() {
-		return this.contrasena;
-	}
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
 
-	public void setContrasena(String contrasena) {
-		this.contrasena = contrasena;
-	}
+    public String getCedula() {
+        return this.cedula;
+    }
 
-	public String getCorreoElectronico() {
-		return this.correoElectronico;
-	}
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
 
-	public void setCorreoElectronico(String correoElectronico) {
-		this.correoElectronico = correoElectronico;
-	}
+    public String getContrasena() {
+        return this.contrasena;
+    }
 
-	public Short getEstado() {
-		return this.estado;
-	}
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
 
-	public void setEstado(Short estado) {
-		this.estado = estado;
-	}
+    public String getCorreoElectronico() {
+        return this.correoElectronico;
+    }
 
-	public Date getFechaCreacion() {
-		return this.fechaCreacion;
-	}
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
+    }
 
-	public void setFechaCreacion(Date fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
-	}
+    public Short getEstado() {
+        return this.estado;
+    }
 
-	public Date getFechaModificacion() {
-		return this.fechaModificacion;
-	}
+    public void setEstado(Short estado) {
+        this.estado = estado;
+    }
 
-	public void setFechaModificacion(Date fechaModificacion) {
-		this.fechaModificacion = fechaModificacion;
-	}
+    public Date getFechaCreacion() {
+        return this.fechaCreacion;
+    }
 
-	public String getNombre() {
-		return this.nombre;
-	}
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public Date getFechaModificacion() {
+        return this.fechaModificacion;
+    }
 
-	public String getTelefono() {
-		return this.telefono;
-	}
+    public void setFechaModificacion(Date fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
 
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
+    public String getNombre() {
+        return this.nombre;
+    }
 
-	public List<AsignacionInstitucion> getAsignacionInstitucions() {
-		return this.asignacionInstitucions;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	public void setAsignacionInstitucions(List<AsignacionInstitucion> asignacionInstitucions) {
-		this.asignacionInstitucions = asignacionInstitucions;
-	}
+    public String getTelefono() {
+        return this.telefono;
+    }
 
-	public AsignacionInstitucion addAsignacionInstitucion(AsignacionInstitucion asignacionInstitucion) {
-		getAsignacionInstitucions().add(asignacionInstitucion);
-		asignacionInstitucion.setUsuario(this);
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
 
-		return asignacionInstitucion;
-	}
+    public List<AsignacionInstitucion> getAsignacionInstitucions() {
+        return this.asignacionInstitucions;
+    }
 
-	public AsignacionInstitucion removeAsignacionInstitucion(AsignacionInstitucion asignacionInstitucion) {
-		getAsignacionInstitucions().remove(asignacionInstitucion);
-		asignacionInstitucion.setUsuario(null);
+    public void setAsignacionInstitucions(List<AsignacionInstitucion> asignacionInstitucions) {
+        this.asignacionInstitucions = asignacionInstitucions;
+    }
 
-		return asignacionInstitucion;
-	}
+    public AsignacionInstitucion addAsignacionInstitucion(AsignacionInstitucion asignacionInstitucion) {
+        getAsignacionInstitucions().add(asignacionInstitucion);
+        asignacionInstitucion.setUsuario(this);
 
-	public List<Respuesta> getRespuestas() {
-		return this.respuestas;
-	}
+        return asignacionInstitucion;
+    }
 
-	public void setRespuestas(List<Respuesta> respuestas) {
-		this.respuestas = respuestas;
-	}
+    public AsignacionInstitucion removeAsignacionInstitucion(AsignacionInstitucion asignacionInstitucion) {
+        getAsignacionInstitucions().remove(asignacionInstitucion);
+        asignacionInstitucion.setUsuario(null);
 
-	public Respuesta addRespuesta(Respuesta respuesta) {
-		getRespuestas().add(respuesta);
-		respuesta.setUsuario(this);
+        return asignacionInstitucion;
+    }
 
-		return respuesta;
-	}
+    public List<UsuarioPerfil> getUsuarioPerfilList() {
+        return usuarioPerfilList;
+    }
 
-	public Respuesta removeRespuesta(Respuesta respuesta) {
-		getRespuestas().remove(respuesta);
-		respuesta.setUsuario(null);
+    public void setUsuarioPerfilList(List<UsuarioPerfil> usuarioPerfilList) {
+        this.usuarioPerfilList = usuarioPerfilList;
+    }
 
-		return respuesta;
-	}
+    public List<Respuesta> getRespuestas() {
+        return this.respuestas;
+    }
+
+    public void setRespuestas(List<Respuesta> respuestas) {
+        this.respuestas = respuestas;
+    }
+
+    public Respuesta addRespuesta(Respuesta respuesta) {
+        getRespuestas().add(respuesta);
+        respuesta.setUsuario(this);
+
+        return respuesta;
+    }
+
+    public Respuesta removeRespuesta(Respuesta respuesta) {
+        getRespuestas().remove(respuesta);
+        respuesta.setUsuario(null);
+
+        return respuesta;
+    }
 
 }
