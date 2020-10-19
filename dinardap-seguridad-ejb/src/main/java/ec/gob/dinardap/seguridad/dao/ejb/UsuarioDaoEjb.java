@@ -133,8 +133,13 @@ public class UsuarioDaoEjb extends GenericDaoEjb<Usuario, Integer> implements Us
     public List<Usuario> obtenerUsuariosPorInstitucionTipoPerfil(List<Integer> institucionIdList, List<Integer> tipoInstitucionList, Integer perfilId) {
         String separador = ",";
         String instituciones = String.join(separador, institucionIdList.toString());
+        instituciones=instituciones.replace("[", "");
+        instituciones=instituciones.replace("]", "");
         String tiposInstitucion = String.join(separador, tipoInstitucionList.toString());
-        StringBuilder sql = new StringBuilder("SELECT u.usuario_id, u.cedula, u.nombre, u.correo_electronico ");
+        tiposInstitucion=tiposInstitucion.replace("[", "");
+        tiposInstitucion=tiposInstitucion.replace("]", "");
+        StringBuilder sql = new StringBuilder("SELECT u.usuario_id, u.cedula, u.nombre, u.correo_electronico, ");
+        sql.append("u.cargo, u.telefono, u.contrasena, u.fecha_creacion, u.fecha_modificacion, u.estado ");
         sql.append("FROM ec_dinardap_seguridad.usuario u ");
         sql.append("INNER JOIN ec_dinardap_seguridad.usuario_perfil up ON u.usuario_id = up.usuario_id ");
         sql.append("INNER JOIN ec_dinardap_seguridad.perfil p ON up.perfil_id = p.perfil_id ");
