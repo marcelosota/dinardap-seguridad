@@ -9,7 +9,6 @@ import ec.gob.dinardap.persistence.dao.ejb.GenericDaoEjb;
 import ec.gob.dinardap.seguridad.dao.UsuarioDao;
 import ec.gob.dinardap.seguridad.dto.ValidacionDto;
 import ec.gob.dinardap.seguridad.modelo.AsignacionInstitucion;
-import ec.gob.dinardap.seguridad.modelo.Opcion;
 import ec.gob.dinardap.seguridad.modelo.Respuesta;
 import ec.gob.dinardap.seguridad.modelo.Usuario;
 import ec.gob.dinardap.seguridad.modelo.UsuarioPerfil;
