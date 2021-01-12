@@ -51,4 +51,16 @@ public class PerfilServicioImpl extends GenericServiceImpl<Perfil, Integer> impl
 		return findByCriterias(criteria);
 	}
 
+	@Override
+	public List<Perfil> obtenerPerfilesPorSistemaTipoPerfil(Integer sistemaId, short tipoPerfil) {
+		String[] criteriaNombres = {"sistema.sistemaId", "tipo", "estado"};
+		CriteriaTypeEnum[] criteriaTipos = {CriteriaTypeEnum.INTEGER_EQUALS, CriteriaTypeEnum.SHORT_EQUALS, CriteriaTypeEnum.SHORT_EQUALS};
+		Object[] criteriaValores = {sistemaId, tipoPerfil, EstadoEnum.ACTIVO.getEstado()};
+		String[] orderBy = {"nombre"};
+		boolean[] asc = {true}; 
+		
+		Criteria criteria = new Criteria(criteriaNombres, criteriaTipos, criteriaValores, orderBy, asc);
+		return findByCriterias(criteria);
+	}
+
 }

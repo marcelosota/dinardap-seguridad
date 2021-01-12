@@ -12,4 +12,5 @@ public interface PerfilServicio extends GenericService<Perfil, Integer> {
 
 	public Perfil obtenerPorNombre(String nombre);
 	public List<Perfil> obtenerPerfilesPorSistema(Integer sistemaId);
+	public List<Perfil> obtenerPerfilesPorSistemaTipoPerfil(Integer sistemaId, short tipoPerfil);
 }
