@@ -2,7 +2,6 @@ package ec.gob.dinardap.seguridad.modelo;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -24,9 +23,12 @@ public class AsignacionInstitucion implements Serializable {
 
     private Short estado;
 
+
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fecha_creacion")
     private Date fechaCreacion;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fecha_modificacion")
     private Date fechaModificacion;
 

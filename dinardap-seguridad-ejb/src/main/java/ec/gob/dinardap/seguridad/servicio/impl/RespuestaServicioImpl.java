@@ -39,7 +39,7 @@ public class RespuestaServicioImpl extends GenericServiceImpl<Respuesta, Integer
     @Override
     public Respuesta getRespuestaByUsuario(Integer idUsuario, Integer idPregunta) {
         Respuesta respuesta = new Respuesta();
-        String[] criteriaNombres = {"usuarioId", "preguntaId", "estado"};
+        String[] criteriaNombres = {"usuario.usuarioId", "pregunta.preguntaId", "estado"};
         CriteriaTypeEnum[] criteriaTipos = {CriteriaTypeEnum.INTEGER_EQUALS, CriteriaTypeEnum.INTEGER_EQUALS, CriteriaTypeEnum.SHORT_EQUALS};
         Object[] criteriaValores = {idUsuario, idPregunta, EstadoEnum.ACTIVO.getEstado()};
         String[] orderBy = {"respuestaId"};
